@@ -93,7 +93,7 @@ function date_sort(marketplace) {
 }
 
 const mkp_sorted_date = price_sort(marketplace);
-console.table(marketplace);
+console.table(mkp_sorted_date);
 
 
 // 🎯 TODO: Filter a specific price range
