@@ -59,8 +59,14 @@ console.log(mkp_len);
 // 2. Log the variable
 // 3. Log how many brands we have
 
-mkp_name = marketplace.name;
-console.log(mkp_name);
+var brands = [];
+marketplace.forEach(element => 
+{
+if (element in brands == false)
+  brands.push(element.brand)
+});
+const uniquebrands = new Set(brands);
+console.log(uniquebrands);
 
 
 // 🎯 TODO: Sort by price
