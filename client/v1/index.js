@@ -50,11 +50,17 @@ console.log(cheap_tshirt_url);
 // 1. Create a variable and assign it the number of products
 // 2. Log the variable
 
+const mkp_len = marketplace.length;
+console.log(mkp_len);
+
 
 // 🎯 TODO: Brands name
 // 1. Create a variable and assign it the list of brands name only
 // 2. Log the variable
 // 3. Log how many brands we have
+
+mkp_name = marketplace.name;
+console.log(mkp_name);
 
 
 // 🎯 TODO: Sort by price
