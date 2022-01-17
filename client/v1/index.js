@@ -74,11 +74,26 @@ console.log(uniquebrands);
 // 2. Create a variable and assign it the list of products by price from lowest to highest
 // 3. Log the variable
 
+function price_sort(marketplace) {
+  const temp = marketplace.sort((a,b) => (a.price > b.price) ? 1 : -1);
+  return temp;
+}
+
+const mkp_sorted_price = price_sort(marketplace);
+console.table(mkp_sorted_price);
 
 // 🎯 TODO: Sort by date
 // 1. Create a function to sort the marketplace objects by products date
 // 2. Create a variable and assign it the list of products by date from recent to old
 // 3. Log the variable
+
+function date_sort(marketplace) {
+  const temp = marketplace.sort((a,b) => (Date.parse(a.date) > Date.parse(b.date)) ? 1 : -1);
+  return temp;
+}
+
+const mkp_sorted_date = price_sort(marketplace);
+console.table(marketplace);
 
 
 // 🎯 TODO: Filter a specific price range
