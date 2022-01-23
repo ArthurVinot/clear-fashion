@@ -59,13 +59,13 @@ console.log("Nombre de produits : ",mkp_len);
 // 2. Log the variable
 // 3. Log how many brands we have
 
-var brands = [];
+var brands_mkp = [];
 marketplace.forEach(element => 
 {
-if (element in brands == false)
-  brands.push(element.brand)
+if (element in brands_mkp == false)
+  brands_mkp.push(element.brands_mkp)
 });
-const uniquebrands = new Set(brands);
+const uniquebrands = new Set(brands_mkp);
 console.log("Liste des marques : ", uniquebrands);
 console.log("Nb de marques ",uniquebrands.size)
 
@@ -139,21 +139,60 @@ console.log("Average basket : ", average_basket);
 //   'brand-name-n': [{...}, {...}, ..., {...}],
 // };
 //
-// 2. Log the variable
-// 3. Log the number of products by brands
 
+
+
+
+function groupBy(marketplace) {
+  return marketplace.reduce(function (cache, obj) {
+    let key = obj['brand']
+    if(!cache[key]) {
+      cache[key] = []
+    }
+    cache[key].push(obj)
+    return cache
+  },{})
+}
+
+const brands = groupBy(marketplace);
+
+// 2. Log the variable
+console.log(brands);
+
+// 3. Log the number of products by brands
+console.log("Number of product per brand");
+for (const brand in brands){
+  console.log(brand," : ", brands[brand].length)
+};
 
 // 🎯 TODO: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
+
+function price_sort_brand(brands) {
+  console.log('Price Sorted by brand');
+  let obj = {};
+  for (const brand in brands){
+    //console.log(brands[brand]);
+    let x = [];
+    x.push([brands[brand].sort((a,b) => a.price < b.price? 1: -1)]);
+    obj[brand] = x;
+  return obj;
+};
+}
+
+console.log(price_sort_brand(brands));
 
 
 // 🎯 TODO: Sort by date for each brand
 // 1. For each brand, sort the products by date, from old to recent
 // 2. Log the sort
 
-
-
+console.log('Date Sorted by brand');
+for (const brand in brands){
+  brands[brand].sort((a,b) => Date.parse(a.date) > Date.parse(b.date) ? 1 : -1);
+};
+console.log(brands);
 
 
 /**
@@ -168,7 +207,15 @@ console.log("Average basket : ", average_basket);
 // The p90 value (90th percentile) is the lower value expected to be exceeded in 90% of the products
 
 
+console.log("P90 Value for each brand")
 
+for (const brand in brands){
+  brands[brand].sort((a,b) => a.price > b.price? 1: -1)
+};
+
+for (const brand in brands){
+  console.log(brands[brand][Math.round(brands[brand].length/10)])
+  };
 
 
 /**
