@@ -154,7 +154,7 @@ function groupBy(marketplace) {
   },{})
 }
 
-const brands = groupBy(marketplace);
+var brands = groupBy(marketplace);
 
 // 2. Log the variable
 console.log(brands);
@@ -169,19 +169,14 @@ for (const brand in brands){
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
 
-function price_sort_brand(brands) {
-  console.log('Price Sorted by brand');
-  let obj = {};
-  for (const brand in brands){
-    //console.log(brands[brand]);
-    let x = [];
-    x.push([brands[brand].sort((a,b) => a.price < b.price? 1: -1)]);
-    obj[brand] = x;
-  return obj;
-};
-}
+console.log('Price Sorted by brand');
+console.log(brands['1083'][0].name);
 
-console.log(price_sort_brand(brands));
+const brands_price_sorted = [];
+for (var brand in brands){
+  console.log(typeof(brands[brand]));
+  console.log(brands[brand].sort((a, b) => Date.parse(a.date) - Date.parse(b.date)));
+}
 
 
 // 🎯 TODO: Sort by date for each brand
@@ -189,9 +184,11 @@ console.log(price_sort_brand(brands));
 // 2. Log the sort
 
 console.log('Date Sorted by brand');
-for (const brand in brands){
+
+for (var brand in brands){
   brands[brand].sort((a,b) => Date.parse(a.date) > Date.parse(b.date) ? 1 : -1);
 };
+
 console.log(brands);
 
 
@@ -209,13 +206,13 @@ console.log(brands);
 
 console.log("P90 Value for each brand")
 
-for (const brand in brands){
+for (var brand in brands){
   brands[brand].sort((a,b) => a.price > b.price? 1: -1)
 };
 
 for (const brand in brands){
   console.log(brands[brand][Math.round(brands[brand].length/10)])
-  };
+};
 
 
 /**
