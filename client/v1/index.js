@@ -34,7 +34,7 @@ console.log(MY_FAVORITE_BRANDS[0]);
 
 
 const cheap_tshirt_url = "https://www.loom.fr/products/le-t-shirt";
-console.log(cheap_tshirt_url);
+console.log("URL du t-shirt le moins cher", cheap_tshirt_url);
 
 
 /**
@@ -51,7 +51,7 @@ console.log(cheap_tshirt_url);
 // 2. Log the variable
 
 const mkp_len = marketplace.length;
-console.log(mkp_len);
+console.log("Nombre de produits : ",mkp_len);
 
 
 // 🎯 TODO: Brands name
@@ -66,7 +66,8 @@ if (element in brands == false)
   brands.push(element.brand)
 });
 const uniquebrands = new Set(brands);
-console.log(uniquebrands);
+console.log("Liste des marques : ", uniquebrands);
+console.log("Nb de marques ",uniquebrands.size)
 
 
 // 🎯 TODO: Sort by price
@@ -80,6 +81,7 @@ function price_sort(marketplace) {
 }
 
 const mkp_sorted_price = price_sort(marketplace);
+console.log("Trié par prix par ordre croissant");
 console.table(mkp_sorted_price);
 
 // 🎯 TODO: Sort by date
@@ -88,18 +90,20 @@ console.table(mkp_sorted_price);
 // 3. Log the variable
 
 function date_sort(marketplace) {
-  const temp = marketplace.sort((a,b) => (Date.parse(a.date) > Date.parse(b.date)) ? 1 : -1);
-  return temp;
+  return marketplace.sort((a,b) => (Date.parse(a.date) > Date.parse(b.date)) ? 1 : -1);
 }
 
-const mkp_sorted_date = price_sort(marketplace);
+const mkp_sorted_date = date_sort(marketplace);
+console.log("Trié par prix par date croissante");
 console.table(mkp_sorted_date);
-
 
 // 🎯 TODO: Filter a specific price range
 // 1. Filter the list of products between 50€ and 100€
 // 2. Log the list
 
+const mkp_filter_price = marketplace.filter(product => product.price <= 100 && product.price >= 50);
+console.log("Filter Tableau");
+console.table(mkp_filter_price);
 
 // 🎯 TODO: Average Basket
 // 1. Determine the average basket of the marketplace
