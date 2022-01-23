@@ -109,7 +109,13 @@ console.table(mkp_filter_price);
 // 1. Determine the average basket of the marketplace
 // 2. Log the average
 
-
+function average_basket_calulation(mkp) {
+  var somme = 0;
+  mkp.forEach(product => somme += product.price);
+  return somme/mkp.length;
+}
+const average_basket = average_basket_calulation(marketplace);
+console.log("Average basket : ", average_basket);
 
 
 
