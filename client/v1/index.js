@@ -105,8 +105,8 @@ const mkp_filter_price = marketplace.filter(product => product.price <= 100 && p
 console.log("Filter Tableau");
 console.table(mkp_filter_price);
 
-// 🎯 TODO: Average Basket
-// 1. Determine the average basket of the marketplace
+// 🎯 TODO: Average price
+// 1. Determine the average price of the marketplace
 // 2. Log the average
 
 function average_basket_calulation(mkp) {
