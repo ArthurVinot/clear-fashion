@@ -170,23 +170,24 @@ for (const brand in brands){
 // 2. Log the sort
 
 console.log('Price Sorted by brand');
-console.log(brands['1083'][0].name);
 
-const brands_price_sorted = [];
+var obj = {};
 for (var brand in brands){
-  console.log(typeof(brands[brand]));
-  console.log(brands[brand].sort((a, b) => Date.parse(a.date) - Date.parse(b.date)));
+  let x = brands[brand];
+  x.sort(function(a, b){return b.price - a.price});
+  obj[brand] = x;
 }
-
+console.log(obj);
 
 // 🎯 TODO: Sort by date for each brand
 // 1. For each brand, sort the products by date, from old to recent
 // 2. Log the sort
 
 console.log('Date Sorted by brand');
-
+var obj = {}
 for (var brand in brands){
-  brands[brand].sort((a,b) => Date.parse(a.date) > Date.parse(b.date) ? 1 : -1);
+  let x = brands[brand];
+  brands[brand].sort((a,b) => Date.parse(a[brand].date) > Date.parse(b.date) ? 1 : -1);
 };
 
 console.log(brands);
