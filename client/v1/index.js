@@ -295,21 +295,41 @@ const COTELE_PARIS = [
 
 var obj = COTELE_PARIS;
 
-console.table(obj.filter(a => Date.now() - Date.parse(a.date) < 14 * 3600 * 1000));
+const delta_time_day = 14 * 3600 * 24 * 1000;
+
+console.log("New Product released in last two weeks");
+console.table(obj.filter(a => Date.now() - Date.parse(a.released) < delta_time_day));
+
 
 // 🎯 TODO: Reasonable price
 // // 1. Log if coteleparis is a reasonable price shop (true or false)
 // // A reasonable price if all the products are less than 100€
 
+var res = true;
+function check_reasonable(liste) {
+  liste.forEach(element => {
+    if (element.price > 100)
+      res =  false;
+  })
+  return res;
+}
+
+console.log("Do they have reasonable price ?")
+console.log(check_reasonable(COTELE_PARIS));
 
 // 🎯 TODO: Find a specific product
 // 1. Find the product with the uuid `b56c6d88-749a-5b4c-b571-e5b5c6483131`
 // 2. Log the product
 
+console.log(COTELE_PARIS.find(a => a.uuid === "b56c6d88-749a-5b4c-b571-e5b5c6483131"));
 
 // 🎯 TODO: Delete a specific product
 // 1. Delete the product with the uuid `b56c6d88-749a-5b4c-b571-e5b5c6483131`
 // 2. Log the new list of product
+
+var liste_pop = COTELE_PARIS;
+liste_pop = liste_pop.filter(a => a.uuid !== "b56c6d88-749a-5b4c-b571-e5b5c6483131");
+console.table(liste_pop);
 
 // 🎯 TODO: Save the favorite product
 let blueJacket = {
@@ -325,6 +345,10 @@ let jacket = blueJacket;
 jacket.favorite = true;
 
 // 1. Log `blueJacket` and `jacket` variables
+console.log("Jacket vs blue jacket");
+console.log("Blue Jacket : ", blueJacket);
+console.log("Jacket : ",jacket);
+
 // 2. What do you notice?
 
 blueJacket = {
@@ -335,7 +359,12 @@ blueJacket = {
 
 // 3. Update `jacket` property with `favorite` to true WITHOUT changing blueJacket properties
 
+jacket = Object.assign({},blueJacket);
+jacket.favorite = true;
 
+console.log("Jacket vs blue jacket");
+console.log("Blue Jacket : ", blueJacket);
+console.log("Jacket : ",jacket);
 
 
 
@@ -348,3 +377,6 @@ blueJacket = {
 // 🎯 TODO: Save in localStorage
 // 1. Save MY_FAVORITE_BRANDS in the localStorage
 // 2. log the localStorage
+
+window.localStorage.setItem("My Favorite Brands", MY_FAVORITE_BRANDS);
+console.log(localStorage);
