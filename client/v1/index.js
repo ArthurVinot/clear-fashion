@@ -184,13 +184,14 @@ console.log(obj);
 // 2. Log the sort
 
 console.log('Date Sorted by brand');
-var obj = {}
+
+var obj = {};
 for (var brand in brands){
   let x = brands[brand];
-  brands[brand].sort((a,b) => Date.parse(a[brand].date) > Date.parse(b.date) ? 1 : -1);
-};
-
-console.log(brands);
+  x.sort(function(a, b){return Date.parse(b.date) - Date.parse(a.date)});
+  obj[brand] = x;
+}
+console.log(obj);
 
 
 /**
@@ -207,12 +208,16 @@ console.log(brands);
 
 console.log("P90 Value for each brand")
 
+var obj = {};
 for (var brand in brands){
-  brands[brand].sort((a,b) => a.price > b.price? 1: -1)
-};
+  let x = brands[brand];
+  x.sort(function(a, b){return a.price - b.price});
+  obj[brand] = x;
+}
 
-for (const brand in brands){
-  console.log(brands[brand][Math.round(brands[brand].length/10)])
+for (const brand in obj){
+  console.log("P90 of : ", brand)
+  console.log(obj[brand][Math.round(obj[brand].length/10)].price)
 };
 
 
@@ -238,7 +243,7 @@ const COTELE_PARIS = [
     price: 85,
     name: 'CHEMISE MILLERAIE MIXTE - NAVY',
     uuid: 'd62e3055-1eb2-5c09-b865-9d0438bcf075',
-    released: '2020-12-21'
+    released: '2022-01-21'
   },
   {
     link: 'https://coteleparis.com//collections/tous-les-produits-cotele/products/la-veste-fuchsia',
@@ -288,6 +293,9 @@ const COTELE_PARIS = [
 // // 1. Log if we have new products only (true or false)
 // // A new product is a product `released` less than 2 weeks.
 
+var obj = COTELE_PARIS;
+
+console.table(obj.filter(a => Date.now() - Date.parse(a.date) < 14 * 3600 * 1000));
 
 // 🎯 TODO: Reasonable price
 // // 1. Log if coteleparis is a reasonable price shop (true or false)
