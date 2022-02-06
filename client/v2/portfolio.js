@@ -124,6 +124,11 @@ selectPage.addEventListener('change', async (event) => {
   render(currentProducts, currentPagination);
 });
 
+selectBrand.addEventListener('change', async (event) => {
+  let products_brands = products.filter(product => product.brand === event.target.value);
+  setCurrentProducts(products_brands);
+  render(currentProducts, currentPagination);
+});
 
 document.addEventListener('DOMContentLoaded', async () => {
   const products = await fetchProducts();
