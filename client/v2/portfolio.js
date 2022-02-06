@@ -117,8 +117,6 @@ selectShow.addEventListener('change', async (event) => {
   render(currentProducts, currentPagination);
 });
 
-currentPagination.setCurrentProducts()
-
 selectPage.addEventListener('change', event => {
   fetchProducts(parseInt(event.target.value), currentPagination.pageSize)
     .then(setCurrentProducts)
