@@ -83,7 +83,11 @@ const renderPagination = pagination => {
     (value, index) => `<option value="${index + 1}">${index + 1}</option>`
   ).join('');
   
-  const options_brand = Array.from({'length':pageCount})
+  var brands_array = [];
+  currentProducts.forEach(element => {
+    brands_array.push(element.brand)
+  });
+  brands_array = set(brands_array);
 
   selectBrand.innerHTML = options_brand;
   selectPage.innerHTML = options;
