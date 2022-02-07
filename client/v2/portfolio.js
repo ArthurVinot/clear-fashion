@@ -28,11 +28,18 @@ const setCurrentProducts = ({result, meta}) => {
  * @param  {Number}  [size=12] - size of the page
  * @return {Object}
  */
-const fetchProducts = async (page = 1, size = 12) => {
+const fetchProducts = async (page = 1, size = 12, brand) => {
   try {
-    const response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
-    );
+    if (brand !== undefined)
+      var response = await fetch(
+        `https://clear-fashion-api.vercel.app?page=${page}&size=${size}&brand=${brand}`
+      );
+    else
+    {
+      var response = await fetch(
+        `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
+      );
+    }
     const body = await response.json();
 
     if (body.success !== true) {
@@ -76,28 +83,13 @@ const renderProducts = products => {
  * Render page selector
  * @param  {Object} pagination
  */
-const renderPagination = pagination => {  
+  const renderPagination = pagination => {  
   const {currentPage, pageCount} = pagination;
   const options = Array.from(
     {'length': pageCount},
     (value, index) => `<option value="${index + 1}">${index + 1}</option>`
   ).join('');
 
-  var brands_array = [];
-  currentProducts.forEach(element => {
-    brands_array.push(element.brand)
-  });
-  brands_array = Set(brands_array);
-
-  const options_brand = Array.from(
-    brands_array,
-    (element) => `<option value="${element}">${element}</option>`
-  ).join('');
-  
-  console.log(options_brands);
-  console.log(options)
-
-  selectBrand.innerHTML = options_brands;
   selectPage.innerHTML = options;
   selectPage.selectedIndex = currentPage - 1;
 };
@@ -140,9 +132,9 @@ selectPage.addEventListener('change', async (event) => {
 });
 
 selectBrand.addEventListener('change', async (event) => {
-  let products_brands = products.filter(product => product.brand === event.target.value);
-  
-  setCurrentProducts(products_brands);
+  const products = await fetchProducts(currentPagination.currentPage, currentPagination.pageSize, event.target.value);
+
+  setCurrentProducts(products);
   render(currentProducts, currentPagination);
 });
 
