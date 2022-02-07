@@ -46,7 +46,8 @@ const fetchProducts = async (page = 1, size = 12, brand) => {
       console.error(body);
       return {currentProducts, currentPagination};
     }
-    body.data.result.filter(element => element.price > 50).slice(0,2);    // Log Here
+
+    body.data.result = body.data.result.filter(element => element.price > 50).slice(0,2);
     return body.data;
   } catch (error) {
     console.error(error);
