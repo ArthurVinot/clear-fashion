@@ -76,13 +76,13 @@ const renderProducts = products => {
  * Render page selector
  * @param  {Object} pagination
  */
-const renderPagination = pagination => {
+const renderPagination = pagination => {  
   const {currentPage, pageCount} = pagination;
   const options = Array.from(
     {'length': pageCount},
     (value, index) => `<option value="${index + 1}">${index + 1}</option>`
   ).join('');
-  
+
   var brands_array = [];
   currentProducts.forEach(element => {
     brands_array.push(element.brand)
@@ -93,8 +93,11 @@ const renderPagination = pagination => {
     brands_array,
     (element) => `<option value="${element}">${element}</option>`
   ).join('');
+  
+  console.log(options_brands);
+  console.log(options)
 
-  selectBrand.innerHTML = options_brand;
+  selectBrand.innerHTML = options_brands;
   selectPage.innerHTML = options;
   selectPage.selectedIndex = currentPage - 1;
 };
