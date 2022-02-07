@@ -46,7 +46,7 @@ const fetchProducts = async (page = 1, size = 12, brand) => {
       console.error(body);
       return {currentProducts, currentPagination};
     }
-
+    body.data.result.filter(element => element.price > 50).slice(0,2);    // Log Here
     return body.data;
   } catch (error) {
     console.error(error);
@@ -137,6 +137,8 @@ selectBrand.addEventListener('change', async (event) => {
   setCurrentProducts(products);
   render(currentProducts, currentPagination);
 });
+
+
 
 document.addEventListener('DOMContentLoaded', async () => {
   const products = await fetchProducts();
