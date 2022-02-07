@@ -12,6 +12,7 @@ const selectBrand = document.querySelector('#brand-select');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 
+
 /**
  * Set global value
  * @param {Array} result - products to display
@@ -22,6 +23,7 @@ const setCurrentProducts = ({result, meta}) => {
   currentPagination = meta;
 };
 
+
 /**
  * Fetch products from api
  * @param  {Number}  [page=1] - current page to fetch
@@ -31,7 +33,7 @@ const setCurrentProducts = ({result, meta}) => {
 const fetchProducts = async (page = 1, size = 12) => {
   try {
     var response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
+      `https://clear-fashion-api.vercel.app?page=${1}&size=${139}`
     );
     const body = await response.json();
 
@@ -39,13 +41,14 @@ const fetchProducts = async (page = 1, size = 12) => {
       console.error(body);
       return {currentProducts, currentPagination};
     }
-    //body.data.result = body.data.result.filter(element => element.price > 50).slice(0,size);
+
     return body.data;
   } catch (error) {
     console.error(error);
     return {currentProducts, currentPagination};
   }
 };
+
 
 /**
  * Render list of products
@@ -102,6 +105,11 @@ const render = (products, pagination) => {
   renderPagination(pagination);
   renderIndicators(pagination);
 };
+
+// Request of all API products
+currentProducts = fetchProducts();
+setCurrentProducts(currentProducts);
+render(currentProducts, currentPagination)
 
 /**
  * Declaration of all Listeners
