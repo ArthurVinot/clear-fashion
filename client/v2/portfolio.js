@@ -82,7 +82,10 @@ const renderPagination = pagination => {
     {'length': pageCount},
     (value, index) => `<option value="${index + 1}">${index + 1}</option>`
   ).join('');
+  
+  const options_brand = Array.from({'length':pageCount})
 
+  selectBrand.innerHTML = options_brand;
   selectPage.innerHTML = options;
   selectPage.selectedIndex = currentPage - 1;
 };
@@ -126,6 +129,7 @@ selectPage.addEventListener('change', async (event) => {
 
 selectBrand.addEventListener('change', async (event) => {
   let products_brands = products.filter(product => product.brand === event.target.value);
+  
   setCurrentProducts(products_brands);
   render(currentProducts, currentPagination);
 });

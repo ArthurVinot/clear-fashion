@@ -76,8 +76,7 @@ console.log("Nb de marques ",uniquebrands.size)
 // 3. Log the variable
 
 function price_sort(marketplace) {
-  const temp = marketplace.sort((a,b) => (a.price > b.price) ? 1 : -1);
-  return temp;
+  return marketplace.sort((a,b) => (a.price > b.price) ? 1 : -1);
 }
 
 const mkp_sorted_price = price_sort(marketplace);
