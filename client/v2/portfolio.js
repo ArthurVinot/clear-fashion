@@ -28,26 +28,18 @@ const setCurrentProducts = ({result, meta}) => {
  * @param  {Number}  [size=12] - size of the page
  * @return {Object}
  */
-const fetchProducts = async (page = 1, size = 12, brand) => {
+const fetchProducts = async (page = 1, size = 12) => {
   try {
-    if (brand !== undefined)
-      var response = await fetch(
-        `https://clear-fashion-api.vercel.app?page=${page}&size=${size}&brand=${brand}`
-      );
-    else
-    {
-      var response = await fetch(
-        `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
-      );
-    }
+    var response = await fetch(
+      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
+    );
     const body = await response.json();
 
     if (body.success !== true) {
       console.error(body);
       return {currentProducts, currentPagination};
     }
-
-    body.data.result = body.data.result.filter(element => element.price > 50).slice(0,size);
+    //body.data.result = body.data.result.filter(element => element.price > 50).slice(0,size);
     return body.data;
   } catch (error) {
     console.error(error);
@@ -133,12 +125,11 @@ selectPage.addEventListener('change', async (event) => {
 });
 
 selectBrand.addEventListener('change', async (event) => {
-  const products = await fetchProducts(currentPagination.currentPage, currentPagination.pageSize, event.target.value);
+  const products = await fetchProducts(currentPagination.currentPage, currentPagination.pageSize);
 
   setCurrentProducts(products);
   render(currentProducts, currentPagination);
 });
-
 
 
 document.addEventListener('DOMContentLoaded', async () => {
