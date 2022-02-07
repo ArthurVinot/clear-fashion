@@ -87,7 +87,12 @@ const renderPagination = pagination => {
   currentProducts.forEach(element => {
     brands_array.push(element.brand)
   });
-  brands_array = set(brands_array);
+  brands_array = Set(brands_array);
+
+  const options_brand = Array.from(
+    brands_array,
+    (element) => `<option value="${element}">${element}</option>`
+  ).join('');
 
   selectBrand.innerHTML = options_brand;
   selectPage.innerHTML = options;
