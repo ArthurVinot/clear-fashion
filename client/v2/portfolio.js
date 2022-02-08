@@ -127,7 +127,6 @@ selectShow.addEventListener('change', async (event) => {
   let products = await request_products();
   
   setCurrentProducts(products);
-  console.log(currentPagination);
   render(currentProducts.slice(0, event.target.value), currentPagination);
 });
 /*
