@@ -33,7 +33,7 @@ const setCurrentProducts = ({result, meta}) => {
 const fetchProducts = async (page = 1, size = 12) => {
   try {
     var response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=${1}&size=${139}`
+      `https://clear-fashion-api.vercel.app?page=1&size=139`
     );
     const body = await response.json();
 
@@ -107,9 +107,13 @@ const render = (products, pagination) => {
 };
 
 // Request of all API products
-currentProducts = fetchProducts();
-setCurrentProducts(currentProducts);
-render(currentProducts, currentPagination)
+const response = fetch(`https://clear-fashion-api.vercel.app?page=1&size=139`)
+  .then(data => data.json())
+  .then(data => currentProducts = data.items);
+
+console.log(currentProducts);
+//setCurrentProducts(currentProducts);
+//render(currentProducts, currentPagination);
 
 /**
  * Declaration of all Listeners
