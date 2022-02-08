@@ -9,6 +9,8 @@ let currentPagination = {};
 const selectShow = document.querySelector('#show-select');
 const selectPage = document.querySelector('#page-select');
 const selectBrand = document.querySelector('#brand-select');
+const selectDate = document.querySelector('#recently');
+const selectPrice = document.querySelector('#price');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 
@@ -136,6 +138,39 @@ selectBrand.addEventListener('change', async (event) => {
   setCurrentProducts(products);
   if (event.target.value !== "")
     currentProducts = currentProducts.filter(elt => elt.brand === event.target.value);
+  currentPagination.count = currentProducts.length;
+  currentPagination.pageCount = Math.floor(currentPagination.count / 12) + 1;
+  currentPagination.pageSize = 12;
+  selectPage.value = "1";
+  selectShow.value = "12";
+  render(currentProducts.slice(0,12), currentPagination);
+});
+
+selectDate.addEventListener('change', async (event) => {
+  let min_date = Date.now() - 12096e5;
+  if (selectDate.checked === true)
+    currentProducts = currentProducts.filter(elt => Date.parse(elt.released) > min_date);
+  else  {
+    let products = await request_products();
+    setCurrentProducts(products);
+  }
+
+  currentPagination.count = currentProducts.length;
+  currentPagination.pageCount = Math.floor(currentPagination.count / 12) + 1;
+  currentPagination.pageSize = 12;
+  selectPage.value = "1";
+  selectShow.value = "12";
+  render(currentProducts.slice(0,12), currentPagination);
+});
+
+selectPrice.addEventListener('change', async (event) => {
+  if (selectPrice.checked === true)
+    currentProducts = currentProducts.filter(elt => elt.price < 50);
+  else  {
+    let products = await request_products();
+    setCurrentProducts(products);
+  }
+
   currentPagination.count = currentProducts.length;
   currentPagination.pageCount = Math.floor(currentPagination.count / 12) + 1;
   currentPagination.pageSize = 12;
