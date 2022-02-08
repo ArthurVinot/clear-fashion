@@ -124,31 +124,33 @@ function page_split(products, pageSize) {
  * Select the number of products to display
  */
 selectShow.addEventListener('change', async (event) => {
-  let products = await request_products();
-  
-  setCurrentProducts(products);
+  currentPagination.pageCount = Math.floor(currentPagination.count / event.target.value) + 1;
+  currentPagination.pageSize = parseInt(event.target.value);
+
   render(currentProducts.slice(0, event.target.value), currentPagination);
 });
-/*
-selectPage.addEventListener('change', async (event) => {
-  const products = await fetchProducts(parseInt(event.target.value), currentPagination.pageSize);
-  
-  setCurrentProducts(products);
-  render(currentProducts, currentPagination);
-});
 
+selectPage.addEventListener('change', async (event) => {
+  currentPagination.currentPage = parseInt(event.target.value);
+  let pageSize = currentPagination.pageSize;
+  let currentPage = currentPagination.currentPage;
+  let display_product = currentProducts.slice((currentPage-1) * pageSize, currentPage * pageSize);
+
+  render(display_product, currentPagination);
+});
+/*
 selectBrand.addEventListener('change', async (event) => {
   const products = await fetchProducts(currentPagination.currentPage, currentPagination.pageSize);
 
   setCurrentProducts(products);
   render(currentProducts, currentPagination);
 });
-
+*/
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const products = await fetchProducts();
-
+  let products = await request_products();
   setCurrentProducts(products);
-  render(currentProducts, currentPagination);
+  currentPagination.pageCount = Math.floor(currentPagination.count / 12) + 1;
+  currentPagination.pageSize = 12;
+  render(currentProducts.slice(0,12), currentPagination);
 }); 
-*/
