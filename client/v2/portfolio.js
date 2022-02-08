@@ -14,6 +14,12 @@ const selectPrice = document.querySelector('#price');
 const selectSort = document.querySelector('#sort');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
+const spanNbNew = document.querySelector('#nbNew');
+const p50 = document.querySelector('#p50');
+const p90 = document.querySelector('#p90');
+const p95 = document.querySelector('#p95');
+const lastDate = document.querySelector('#lastDate');
+
 
 
 /**
@@ -82,7 +88,18 @@ const renderProducts = products => {
 const renderIndicators = pagination => {
   const {count} = pagination;
 
+  let new_indic = currentProducts.filter(elt => Date.parse(elt.released) > Date.now() - 12096e5*2).length;
+
+  spanNbNew.innerHTML = new_indic;
   spanNbProducts.innerHTML = count;
+
+  let sort_p_value = currentProducts.sort((a,b) => a.price - b.price);
+  p50.innerHTML = sort_p_value[Math.round(sort_p_value.length/2)].price;
+  p90.innerHTML = sort_p_value[Math.round(sort_p_value.length/10)].price;
+  p95.innerHTML = sort_p_value[Math.round(sort_p_value.length/20)].price;
+
+  let sortDate = currentProducts.sort((a,b) => Date.parse(b.released) - Date.parse(a.released));
+  lastDate.innerHTML = sortDate[0].released;
 };
 
 const render = (products, pagination) => {
