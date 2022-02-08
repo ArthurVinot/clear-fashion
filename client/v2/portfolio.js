@@ -30,24 +30,6 @@ const setCurrentProducts = ({result, meta}) => {
  * @param  {Number}  [size=12] - size of the page
  * @return {Object}
  */
-const fetchProducts = async (page = 1, size = 12) => {
-  try {
-    var response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=1&size=139`
-    );
-    const body = await response.json();
-
-    if (body.success !== true) {
-      console.error(body);
-      return {currentProducts, currentPagination};
-    }
-
-    return body.data;
-  } catch (error) {
-    console.error(error);
-    return {currentProducts, currentPagination};
-  }
-};
 
 
 /**
@@ -107,13 +89,32 @@ const render = (products, pagination) => {
 };
 
 // Request of all API products
-const response = fetch(`https://clear-fashion-api.vercel.app?page=1&size=139`)
-  .then(data => data.json())
-  .then(data => currentProducts = data.items);
+const request_products = async () => {
+  try {
+    var response = await fetch(
+      `https://clear-fashion-api.vercel.app?page=1&size=139`
+    );
+    const body = await response.json();
 
-console.log(currentProducts);
-//setCurrentProducts(currentProducts);
-//render(currentProducts, currentPagination);
+    if (body.success !== true) {
+      console.error(body);
+      return {currentProducts, currentPagination};
+    }
+
+    return body.data;
+  } catch (error) {
+    console.error(error);
+    return {currentProducts, currentPagination};
+  }
+}
+
+function page_split(products, pageSize) {
+  let temp = [];
+  
+  while (products.length) {
+    temp.push(products.splice(0, pageSize))
+  }
+}
 
 /**
  * Declaration of all Listeners
@@ -123,12 +124,13 @@ console.log(currentProducts);
  * Select the number of products to display
  */
 selectShow.addEventListener('change', async (event) => {
-  const products = await fetchProducts(currentPagination.currentPage, parseInt(event.target.value));
-
+  let products = await request_products();
+  
   setCurrentProducts(products);
-  render(currentProducts, currentPagination);
+  console.log(currentPagination);
+  render(currentProducts.slice(0, event.target.value), currentPagination);
 });
-
+/*
 selectPage.addEventListener('change', async (event) => {
   const products = await fetchProducts(parseInt(event.target.value), currentPagination.pageSize);
   
@@ -149,4 +151,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   setCurrentProducts(products);
   render(currentProducts, currentPagination);
-});
+}); 
+*/
