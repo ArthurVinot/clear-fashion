@@ -11,6 +11,7 @@ const selectPage = document.querySelector('#page-select');
 const selectBrand = document.querySelector('#brand-select');
 const selectDate = document.querySelector('#recently');
 const selectPrice = document.querySelector('#price');
+const selectSort = document.querySelector('#sort');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 
@@ -147,7 +148,7 @@ selectBrand.addEventListener('change', async (event) => {
 });
 
 selectDate.addEventListener('change', async (event) => {
-  let min_date = Date.now() - 12096e5;
+  let min_date = Date.now() - 12096e5*2;
   if (selectDate.checked === true)
     currentProducts = currentProducts.filter(elt => Date.parse(elt.released) > min_date);
   else  {
@@ -170,7 +171,29 @@ selectPrice.addEventListener('change', async (event) => {
     let products = await request_products();
     setCurrentProducts(products);
   }
+  currentPagination.count = currentProducts.length;
+  currentPagination.pageCount = Math.floor(currentPagination.count / 12) + 1;
+  currentPagination.pageSize = 12;
+  selectPage.value = "1";
+  selectShow.value = "12";
+  render(currentProducts.slice(0,12), currentPagination);
+});
 
+selectSort.addEventListener('change', async (event) => {
+  switch (event.target.value) {
+    case 'price-asc':
+      currentProducts = currentProducts.sort((a,b) => a.price - b.price);
+      break;
+    case 'price-desc':
+      currentProducts = currentProducts.sort((a,b) => b.price - a.price);
+      break;
+    case 'date-asc':
+      currentProducts = currentProducts.sort((a,b) => Date.parse(a.released) - Date.parse(b.released));
+      break;
+    case 'date-desc':
+      currentProducts = currentProducts.sort((a,b) => Date.parse(b.released) - Date.parse(a.released));
+      break;
+  }
   currentPagination.count = currentProducts.length;
   currentPagination.pageCount = Math.floor(currentPagination.count / 12) + 1;
   currentPagination.pageSize = 12;
