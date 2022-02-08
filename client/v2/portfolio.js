@@ -108,14 +108,6 @@ const request_products = async () => {
   }
 }
 
-function page_split(products, pageSize) {
-  let temp = [];
-  
-  while (products.length) {
-    temp.push(products.splice(0, pageSize))
-  }
-}
-
 /**
  * Declaration of all Listeners
  */
@@ -126,8 +118,8 @@ function page_split(products, pageSize) {
 selectShow.addEventListener('change', async (event) => {
   currentPagination.pageCount = Math.floor(currentPagination.count / event.target.value) + 1;
   currentPagination.pageSize = parseInt(event.target.value);
-
   render(currentProducts.slice(0, event.target.value), currentPagination);
+  selectPage.value = "1";
 });
 
 selectPage.addEventListener('change', async (event) => {
@@ -138,14 +130,19 @@ selectPage.addEventListener('change', async (event) => {
 
   render(display_product, currentPagination);
 });
-/*
-selectBrand.addEventListener('change', async (event) => {
-  const products = await fetchProducts(currentPagination.currentPage, currentPagination.pageSize);
 
+selectBrand.addEventListener('change', async (event) => {
+  let products = await request_products();
   setCurrentProducts(products);
-  render(currentProducts, currentPagination);
+  if (event.target.value !== "")
+    currentProducts = currentProducts.filter(elt => elt.brand === event.target.value);
+  currentPagination.count = currentProducts.length;
+  currentPagination.pageCount = Math.floor(currentPagination.count / 12) + 1;
+  currentPagination.pageSize = 12;
+  selectPage.value = "1";
+  selectShow.value = "12";
+  render(currentProducts.slice(0,12), currentPagination);
 });
-*/
 
 document.addEventListener('DOMContentLoaded', async () => {
   let products = await request_products();
