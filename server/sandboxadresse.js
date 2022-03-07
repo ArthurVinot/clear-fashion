@@ -1,11 +1,11 @@
 /* eslint-disable no-console, no-process-exit */
-const montlimart = require('./sources/montlimart');
+const dedicatedbrand = require('./sources/dedicatedbrand');
 
-async function sandbox (site = 'https://www.montlimart.com/polos-t-shirts.html') {
+async function sandbox (site = 'https://www.dedicatedbrand.com/en/men/all-men/') {
   try {
     console.log(`🕵️‍♀️  browsing ${site} source`);
 
-    const products = await montlimart.scrape(site);
+    const products = await dedicatedbrand.scrape(site);
 
     console.log(products);
     console.log('done');
