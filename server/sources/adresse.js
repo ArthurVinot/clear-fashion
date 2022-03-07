@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
+const pretty = require("pretty");
 
 /**
  * Parse webpage e-shop
@@ -8,21 +9,27 @@ const cheerio = require('cheerio');
  */
 const parse = data => {
   const $ = cheerio.load(data);
-
-  return $('.productList-container .productList')
+  return $('ul.product_list.grid.row li')
     .map((i, element) => {
       const name = $(element)
-        .find('.productList-title')
+        .find('.right-block .product-name')
         .text()
         .trim()
-        .replace(/\s/g, ' ');
+        .replace(/\s/g, ' ')
+        .replace(/.+?(?=\s{2,})/, '')
+        .trim();
       const price = parseInt(
         $(element)
-          .find('.productList-price')
+          .find('.price.product-price')
           .text()
       );
 
-      return {name, price};
+      if (name === '') {
+        return null
+      }
+      else
+        return {name, price};
+
     })
     .get();
 };
