@@ -9,9 +9,9 @@ async function sandbox (site = 'https://www.montlimart.com/polos-t-shirts.html')
     const products = await montlimart.scrape(site);
 
     console.log(products);
-    const jsonObj = JSON.stringify(products);
     console.log('done');
 
+    const jsonObj = JSON.stringify(products);
     fs.writeFileSync('test.json', jsonObj, 'utf8', function (err) {
       if (err) {
           return console.log(err);
