@@ -1,7 +1,7 @@
 /* eslint-disable no-console, no-process-exit */
 const adresse = require('./sources/adresse');
 
-async function sandbox (site = 'https://adresse.paris/608-pulls-et-sweatshirts') {
+async function sandbox (site = 'https://adresse.paris/630-toute-la-collection?id_category=630&n=123') {
   try {
     console.log(`🕵️‍♀️  browsing ${site} source`);
 

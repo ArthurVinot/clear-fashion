@@ -2,7 +2,7 @@
 const montlimart = require('./sources/montlimart');
 const fs = require('fs');
 
-async function sandbox (site = 'https://www.montlimart.com/polos-t-shirts.html') {
+async function sandbox (site = 'https://www.montlimart.com/toute-la-collection.html') {
   try {
     console.log(`🕵️‍♀️  browsing ${site} source`);
 

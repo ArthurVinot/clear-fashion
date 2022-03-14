@@ -28,7 +28,7 @@ const parse = data => {
         return null
       }
       else
-        return {name, price};
+        return {brand:'adresse',name, price};
 
     })
     .get();
