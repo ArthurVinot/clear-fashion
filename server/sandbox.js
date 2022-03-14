@@ -9,7 +9,7 @@ const client = new MongoClient(uri);
 const dbname = 'clear-fashion';
 
 
-async function sandbox (site = 'https://adresse.paris/630-toute-la-collection?id_category=630&n=123') {
+async function sandbox (site = 'https://adresse.paris/630-toute-la-collection?id_category=630&n=116') {
   try {
     console.log(`🕵️‍♀️  browsing ${site} source`);
 
@@ -21,6 +21,7 @@ async function sandbox (site = 'https://adresse.paris/630-toute-la-collection?id
 
     const collection = db.collection('products');
     const result = await collection.insertMany(products);
+    //const dele = await collection.remove()
 
     console.log(result);
 

@@ -11,13 +11,8 @@ async function sandbox (site = 'https://www.montlimart.com/toute-la-collection.h
     console.log(products);
     console.log('done');
 
-    const jsonObj = JSON.stringify(products);
-    fs.writeFileSync('test.json', jsonObj, 'utf8', function (err) {
-      if (err) {
-          return console.log(err);
-      }
-      console.log("The file was saved!");
-  });
+    const json_content = JSON.stringify(products);
+    fs.writeFileSync("montlimart.json", json_content);
 
     process.exit(0);
   } catch (e) {
