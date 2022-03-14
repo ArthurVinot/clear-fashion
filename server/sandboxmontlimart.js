@@ -2,7 +2,16 @@
 const montlimart = require('./sources/montlimart');
 const fs = require('fs');
 
-async function sandbox (site = 'https://www.montlimart.com/toute-la-collection.html') {
+const site_pages = Array.from({length:8}, (_,i) => i + 1);
+const sites = [];
+site_pages.forEach(element => {
+  sites.push(`https://www.montlimart.com/toute-la-collection.html?p=${element}`)
+});
+console.log(sites);
+
+const site_products = []
+
+async function sandbox (site) {
   try {
     console.log(`🕵️‍♀️  browsing ${site} source`);
 
@@ -12,7 +21,7 @@ async function sandbox (site = 'https://www.montlimart.com/toute-la-collection.h
     console.log('done');
 
     const json_content = JSON.stringify(products);
-    fs.writeFileSync("montlimart.json", json_content);
+    site_products.push(json_content);
 
     process.exit(0);
   } catch (e) {
@@ -23,4 +32,11 @@ async function sandbox (site = 'https://www.montlimart.com/toute-la-collection.h
 
 const [,, eshop] = process.argv;
 
-sandbox(eshop);
+sites.forEach(element => {
+  wait sandbox(element)
+  .then(console.log("done page: " + element))
+  .then(console.log(site_products))
+});
+
+
+//fs.writeFileSync("montlimart.json", site_products.join());
