@@ -14,7 +14,7 @@ app.use(helmet());
 
 app.options('*', cors());
 
-app.get('/', (request, response) => {
+app.get('/products/', (request, response) => {
   response.send({'ack': true});
 });
 
