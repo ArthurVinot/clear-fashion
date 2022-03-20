@@ -20,10 +20,8 @@ async function sandbox (site) {
     console.log(products);
     console.log('done');
 
-    const json_content = JSON.stringify(products);
-    site_products.push(json_content);
+    site_products.push(products);
 
-    process.exit(0);
   } catch (e) {
     console.error(e);
     process.exit(1);
@@ -32,11 +30,14 @@ async function sandbox (site) {
 
 const [,, eshop] = process.argv;
 
-sites.forEach(element => {
-  wait sandbox(element)
-  .then(console.log("done page: " + element))
-  .then(console.log(site_products))
-});
 
+sites.reduce(async (memo, site) => {
+  await memo;
+  await sandbox(site);
+  console.log("done page: " + site);
+  if (site === sites[sites.length-1]) {
+    let json_content = site_products.flat();
+    fs.writeFileSync("montlimart.json", JSON.stringify(json_content));
+  }
+}, undefined);
 
-//fs.writeFileSync("montlimart.json", site_products.join());
