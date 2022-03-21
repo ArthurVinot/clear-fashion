@@ -19,11 +19,7 @@ app.use(helmet());
 
 app.options('*', cors());
 
-app.use('/products/:id', testRoute)
-
-app.get('/products/', (request, response) => {
-  response.send({'ack': true});
-});
+app.use('/products', testRoute)
 
 
 app.listen(PORT);
