@@ -1,7 +1,5 @@
-const { query } = require('express');
 const express = require('express');
 const {MongoClient} = require('mongodb');
-const { request, response } = require('../api');
 
 const router = express.Router();
 
@@ -18,6 +16,7 @@ async function DB_Connection() {
     return collection;
   }
 
+
 router.get('/search/:id',async (request, response) => {
     let collection = await DB_Connection();
     const result = await collection.findOne({_id: request.params.id});
@@ -27,9 +26,12 @@ router.get('/search/:id',async (request, response) => {
 
 router.get('/search', async (request, response) => {
     let collection = await DB_Connection();
-    const collection_result = collection.find({brand: request.query.brand, price: {$lt: parseInt(request.query.price)}}).limit(parseInt(request.query.limit));
+    let brand = request.query.brand;
+    if (request.query.brand === undefined) brand = '';
+
+    const collection_result = collection.find({brand: request.query.brand, price: {$lt: parseInt(request.query.price)}}).sort({price : 1}).limit(parseInt(request.query.limit));
     const res = await collection_result.toArray();
-    console.log(res);
+    console.log("La query retourne ça: " + request.query.test);
     response.send(res);
 });
 
