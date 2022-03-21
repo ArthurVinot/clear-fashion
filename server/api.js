@@ -1,10 +1,15 @@
 const cors = require('cors');
 const express = require('express');
 const helmet = require('helmet');
+require('dotenv/config');
+
+const testRoute = require('./routes/products');
+
 
 const PORT = 8092;
 
 const app = express();
+
 
 module.exports = app;
 
@@ -14,9 +19,12 @@ app.use(helmet());
 
 app.options('*', cors());
 
+app.use('/products/:id', testRoute)
+
 app.get('/products/', (request, response) => {
   response.send({'ack': true});
 });
+
 
 app.listen(PORT);
 

@@ -19,7 +19,7 @@ async function sandbox (site = 'https://adresse.paris/630-toute-la-collection?id
     console.log('Connected correctly to server');
     const db =  client.db(dbname);
 
-    const collection = db.collection('products');
+    const collection = db.collection('produs');
     const result = await collection.insertMany(products);
     //const dele = await collection.remove()
 
