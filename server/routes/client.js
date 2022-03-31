@@ -31,7 +31,7 @@ async function DB_Connection() {
     const res = await collection_result.toArray();
     console.log("La query retourne ça: " + request.query.test);
     response.send({
-      "sucess" : true,
+      "success" : true,
       data : {
         "result" : res,
         "meta" : {
