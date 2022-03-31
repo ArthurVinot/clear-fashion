@@ -1,6 +1,9 @@
 const express = require('express');
 const {MongoClient} = require('mongodb');
 
+
+var count = 0;
+
 const router = express.Router();
 
 async function DB_Connection() {
@@ -13,6 +16,9 @@ async function DB_Connection() {
   
     const collection = client.db(MONGODB_DB_NAME).collection(MONGODB_COLLECTION);
     
+
+    count = await collection.countDocuments();
+
     return collection;
   }
 
@@ -24,7 +30,17 @@ async function DB_Connection() {
     const collection_result = collection.find().sort().skip(page > 0 ? ( ( page - 1 ) * size) : 0).limit(size);
     const res = await collection_result.toArray();
     console.log("La query retourne ça: " + request.query.test);
-    response.send(res);
+    response.send({
+      "sucess" : true,
+      data : {
+        "result" : res,
+        "meta" : {
+          "currentPage": page,
+          "pageSize" : size,
+          "pageCount" : count
+        }
+      }
+    });
 });
 
 
