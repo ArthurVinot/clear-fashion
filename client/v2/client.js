@@ -27,7 +27,9 @@ app.get('/', (request, response) => {
   });
 
 app.get('/portfolio.js', (request, response) => {
-response.sendFile(__dirname + '/portfolio.js')
+  response.set("Content-Security-Policy", "default-src 'self' https://server-arthurvinot.vercel.app/");
+  response.sendFile(__dirname + '/portfolio.js');
+
 });  
 
 app.listen(PORT);

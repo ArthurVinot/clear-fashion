@@ -113,7 +113,12 @@ const request_products = async () => {
   try {
     var response = await fetch(
       `https://server-arthurvinot.vercel.app`
-    );
+    ,{
+      method :"post",
+      headers: {
+        "Content-Security-Policy": "default-src 'self' server-arthurvinot.vercel.app"
+      }
+    });
     const body = await response.json();
 
     if (body.success !== true) {
