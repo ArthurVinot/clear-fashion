@@ -9,7 +9,7 @@ module.exports = app;
 
 
 app.get('/', (request, response) => {
-    response.sendFile(__dirname + "/index.html");
+    response.send('Hello Word');
   });
 
 app.listen(PORT);
