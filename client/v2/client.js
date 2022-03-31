@@ -9,7 +9,7 @@ module.exports = app;
 
 
 app.get('/', (request, response) => {
-    response.sendFile('./index.html')
+    response.sendFile(__dirname + "/index.html");
   });
 
 app.listen(PORT);
