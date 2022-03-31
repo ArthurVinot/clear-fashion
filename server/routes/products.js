@@ -24,7 +24,7 @@ router.get('/search/:id',async (request, response) => {
     response.send(result);
   });
 
-router.get('/search', async (request, response) => {
+router.get('/filter/', async (request, response) => {
     let collection = await DB_Connection();
     let brand = request.query.brand;
     if (request.query.brand === undefined) brand = '';
