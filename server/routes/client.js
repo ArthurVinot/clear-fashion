@@ -37,7 +37,7 @@ async function DB_Connection() {
         "meta" : {
           "currentPage": page,
           "pageSize" : size,
-          "pageCount" : count
+          "count" : count
         }
       }
     });
