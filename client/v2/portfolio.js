@@ -112,7 +112,7 @@ const render = (products, pagination) => {
 const request_products = async () => {
   try {
     var response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=1&size=139`
+      `https://server-arthurvinot.vercel.app`
     );
     const body = await response.json();
 
