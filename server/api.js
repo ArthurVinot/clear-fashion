@@ -21,6 +21,9 @@ app.options('*', cors());
 
 app.use('/products', testRoute)
 
+app.get('/', (request, response) => {
+    response.send({'ack': true});
+  });
 
 app.listen(PORT);
 
