@@ -14,6 +14,12 @@ app.use(require('body-parser').json());
 app.use(cors());
 app.use(helmet());
 
+
+const referrerPolicy = require('referrer-policy');
+app.use(referrerPolicy({policy: 'strict-origin-when-cross-origin'}));
+
+
+
 app.options('*', cors());
 
 app.get('/', (request, response) => {
