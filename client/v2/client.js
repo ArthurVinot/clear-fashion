@@ -23,6 +23,7 @@ app.use(referrerPolicy({policy: 'strict-origin-when-cross-origin'}));
 app.options('*', cors());
 
 app.get('/', (request, response) => {
+    response.set("Content-Security-Policy", "default-src 'self' https://server-arthurvinot.vercel.app/");
     response.sendFile(__dirname + '/index.html')
   });
 
